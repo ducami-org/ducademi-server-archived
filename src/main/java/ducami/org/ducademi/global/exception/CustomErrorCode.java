@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 public enum CustomErrorCode {
 
     // 멤버 관련 오류
-    MEMBER_ALREADY_EXIST(HttpStatus.CONFLICT, "M-1", "멤버가 이미 존재한다");
+    MEMBER_ALREADY_EXIST(HttpStatus.CONFLICT, "M-1", "멤버가 이미 존재한다"),
+    MEMBER_NOT_EXIST(HttpStatus.NOT_FOUND, "M-2", "멤버가 존재하지 않는다"),
+    MEMBER_NOT_CORRECT(HttpStatus.NOT_FOUND, "M-3", "멤버 정보가 일치하지 않음");
 
     private final HttpStatus code;
     private final String status;
