@@ -4,6 +4,7 @@ import ducami.org.ducademi.domain.member.authority.MemberAccountType;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "member")
+@NoArgsConstructor
 public class MemberEntity {
 
     // 회원 PK
