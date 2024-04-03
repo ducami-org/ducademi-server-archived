@@ -1,7 +1,11 @@
 package ducami.org.ducademi.global.auth;
 
 import ducami.org.ducademi.domain.member.entity.MemberEntity;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -14,17 +18,35 @@ public class JwtUtils {
 
     private final JwtProperties properties;
     private final SecretKey secretKey;
+    private final UserDetailsService userDetailsService;
 
-    public JwtUtils(JwtProperties properties) {
+    public JwtUtils(JwtProperties properties, UserDetailsService userDetailsService) {
         this.properties = properties;
+        this.userDetailsService = userDetailsService;
         this.secretKey = new SecretKeySpec(properties.getSecretKey().getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
+    }
+
+    public String getUsername(String token) {
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get(
+                "email",
+                String.class
+        );
+    }
+
+    public boolean isExpired(String token) {
+        try {
+            Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
+            return false;
+        } catch (ExpiredJwtException e) {
+            return true;
+        }
     }
 
     public JwtInfo generateToken(MemberEntity member) {
         long now = new Date().getTime();
 
         String accessToken = Jwts.builder()
-                .claim("sub", member.getIdx().toString())
+                .claim("email", member.getEmail())
                 .claim("authority", member.getAuthority())
                 .issuedAt(new Date(now))
                 .expiration(new Date(now + properties.getAccessExpired()))
@@ -32,7 +54,7 @@ public class JwtUtils {
                 .compact();
 
         String refreshToken = Jwts.builder()
-                .claim("sub", member.getIdx().toString())
+                .claim("email", member.getEmail())
                 .claim("authority", member.getAuthority())
                 .issuedAt(new Date(now))
                 .expiration(new Date(now + properties.getRefreshExpired()))
@@ -40,6 +62,12 @@ public class JwtUtils {
                 .compact();
 
         return JwtInfo.of(accessToken, refreshToken);
+    }
+
+    public UsernamePasswordAuthenticationToken getAuthentication(String token) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));
+
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 
 }
