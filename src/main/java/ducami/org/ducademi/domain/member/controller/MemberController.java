@@ -1,5 +1,6 @@
 package ducami.org.ducademi.domain.member.controller;
 
+import ducami.org.ducademi.domain.member.dto.MemberLoginDTO;
 import ducami.org.ducademi.domain.member.dto.MemberRegisterDTO;
 import ducami.org.ducademi.domain.member.service.MemberService;
 import ducami.org.ducademi.global.response.BaseResponse;
@@ -20,6 +21,11 @@ public class MemberController {
     @PostMapping("register")
     public BaseResponse<?> register(@Valid @RequestBody MemberRegisterDTO dto) {
         return memberService.register(dto);
+    }
+
+    @PostMapping("login")
+    public BaseResponse<?> login(@Valid @RequestBody MemberLoginDTO dto) {
+        return memberService.login(dto);
     }
 
 }
