@@ -26,11 +26,8 @@ public class JwtUtils {
         this.secretKey = new SecretKeySpec(properties.getSecretKey().getBytes(StandardCharsets.UTF_8), Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 
-    public String getUsername(String token) {
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get(
-                "email",
-                String.class
-        );
+    public String getEmail(String token) {
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getSubject();
     }
 
     public boolean isExpired(String token) {
@@ -46,8 +43,8 @@ public class JwtUtils {
         long now = new Date().getTime();
 
         String accessToken = Jwts.builder()
-                .claim("email", member.getEmail())
                 .claim("authority", member.getAuthority())
+                .subject(member.getEmail())
                 .issuedAt(new Date(now))
                 .expiration(new Date(now + properties.getAccessExpired()))
                 .signWith(secretKey)
@@ -56,6 +53,7 @@ public class JwtUtils {
         String refreshToken = Jwts.builder()
                 .claim("email", member.getEmail())
                 .claim("authority", member.getAuthority())
+                .subject(member.getEmail())
                 .issuedAt(new Date(now))
                 .expiration(new Date(now + properties.getRefreshExpired()))
                 .signWith(secretKey)
@@ -65,7 +63,7 @@ public class JwtUtils {
     }
 
     public UsernamePasswordAuthenticationToken getAuthentication(String token) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));
+        UserDetails userDetails = userDetailsService.loadUserByUsername(getEmail(token));
 
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
