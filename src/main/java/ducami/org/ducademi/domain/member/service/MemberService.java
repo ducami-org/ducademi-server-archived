@@ -5,7 +5,6 @@ import ducami.org.ducademi.domain.member.dto.MemberLoginDTO;
 import ducami.org.ducademi.domain.member.dto.MemberRegisterDTO;
 import ducami.org.ducademi.domain.member.entity.MemberEntity;
 import ducami.org.ducademi.domain.member.repository.MemberRepository;
-import ducami.org.ducademi.global.auth.JwtInfo;
 import ducami.org.ducademi.global.auth.JwtUtils;
 import ducami.org.ducademi.global.exception.CustomErrorCode;
 import ducami.org.ducademi.global.exception.CustomException;
@@ -39,6 +38,7 @@ public class MemberService {
                         )
                         .name(dto.getName())
                         .birth(dto.getBirth())
+                        .email(dto.getEmail())
                         .phoneNum(dto.getPhoneNum())
                         .authority(MemberAccountType.ROLE_USER)
                         .build()

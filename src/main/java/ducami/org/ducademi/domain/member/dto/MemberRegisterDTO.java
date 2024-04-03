@@ -19,6 +19,9 @@ public class MemberRegisterDTO {
     private String birth;
 
     @NotBlank
+    private String email;
+
+    @NotBlank
     private String phoneNum;
 
 }
