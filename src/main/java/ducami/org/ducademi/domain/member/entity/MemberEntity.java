@@ -35,8 +35,11 @@ public class MemberEntity {
     private String name;
 
     // 회원 생년월일
-    @Column(name = "birth" ,nullable = false)
+    @Column(name = "birth", nullable = false)
     private String birth;
+
+    @Column(name="email", nullable = false, unique = true)
+    private String email;
 
     // 회원 전화번호
     @Column(name = "phone_num", nullable = false)
@@ -65,6 +68,7 @@ public class MemberEntity {
             String password,
             String name,
             String birth,
+            String email,
             String phoneNum,
             MemberAccountType authority
     ) {
@@ -72,6 +76,7 @@ public class MemberEntity {
         this.password = password;
         this.name = name;
         this.birth = birth;
+        this.email = email;
         this.phoneNum = phoneNum;
         this.authority = authority;
         this.profile = "https://media.discordapp.net/attachments/1034098844092342294/1073150777033494548/Screenshot_20230129_022516_Photo_Editor.jpg?ex=6617980b&is=6605230b&hm=2aa70e554a6bda71f6c0514b3492ed10f180cdadfbcdba00f091ddd6c2c200da&=&";
