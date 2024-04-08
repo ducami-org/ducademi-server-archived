@@ -25,7 +25,7 @@ public class MemberService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtUtils jwtUtils;
 
-    public BaseResponse<?> register(MemberRegisterDTO dto) {
+    public BaseResponse<?> postRegister(MemberRegisterDTO dto) {
         if (memberRepository.existsById(dto.getId())) {
             throw new CustomException(CustomErrorCode.MEMBER_ALREADY_EXIST);
         }
@@ -52,7 +52,7 @@ public class MemberService {
         );
     }
 
-    public BaseResponse<?> login(MemberLoginDTO dto) {
+    public BaseResponse<?> postLogin(MemberLoginDTO dto) {
         MemberEntity member = memberRepository.findById(dto.getId())
                 .orElseThrow(() -> new CustomException(CustomErrorCode.MEMBER_NOT_EXIST));
 
