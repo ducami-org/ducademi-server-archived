@@ -20,12 +20,12 @@ public class MemberController {
 
     @PostMapping("register")
     public BaseResponse<?> postRegister(@Valid @RequestBody MemberRegisterDTO dto) {
-        return memberService.register(dto);
+        return memberService.postRegister(dto);
     }
 
     @PostMapping("login")
     public BaseResponse<?> postLogin(@Valid @RequestBody MemberLoginDTO dto) {
-        return memberService.login(dto);
+        return memberService.postLogin(dto);
     }
 
 }
