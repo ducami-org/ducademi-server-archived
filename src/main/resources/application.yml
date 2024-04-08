@@ -1,1 +1,13 @@
+server :
+  port : 9000
 
+spring :
+  profiles :
+    include : mysql, jwt
+
+jwt :
+  secret : b9e120472c2d668da41af9b7bb3c77cc6497acaabb462cb21f5c93c419291a996ded792c927805387f7201c4ecfd588abb52da34c78676f742b0de80d701076a
+
+  expire :
+    access: 60000
+    refresh: 1800000
