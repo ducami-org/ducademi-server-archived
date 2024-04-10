@@ -1,4 +1,4 @@
-package ducami.org.ducademi.global.auth;
+package ducami.org.ducademi.global.property;
 
 import lombok.Getter;
 import lombok.Setter;

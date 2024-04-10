@@ -1,6 +1,7 @@
 package ducami.org.ducademi.global.auth;
 
 import ducami.org.ducademi.domain.member.entity.MemberEntity;
+import ducami.org.ducademi.global.property.JwtProperties;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
