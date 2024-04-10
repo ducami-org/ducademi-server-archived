@@ -106,4 +106,19 @@ public class MemberService {
         return responseEntity.getBody().get("access_token").asText();
     }
 
+    public JsonNode getUserResource(String token) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        httpHeaders.set("Authorization", "Bearer " + token);
+
+        HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
+
+        return restTemplate.exchange(
+                oAuth2Properties.getGoogleResourceURI(),
+                HttpMethod.GET,
+                httpEntity,
+                JsonNode.class
+        ).getBody();
+    }
+
 }
