@@ -1,23 +1,17 @@
 package ducami.org.ducademi.domain.board.entity;
 
-import ducami.org.ducademi.domain.member.entity.MemberEntity;
+import ducami.org.ducademi.domain.board.dto.BoardRequestDTO;
 import ducami.org.ducademi.global.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -54,5 +48,10 @@ public class BoardEntity extends BaseTimeEntity {
     ) {
         this.title = title;
         this.content = content;
+    }
+
+    public void update(BoardRequestDTO boardRequestDTO) {
+        this.title = boardRequestDTO.getTitle();
+        this.content = boardRequestDTO.getContent();
     }
 }
