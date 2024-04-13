@@ -23,9 +23,10 @@ public class FileEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fileIdx;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private BoardEntity board;
+//    보류
+//    @ManyToOne
+//    @JoinColumn(nullable = false)
+//    private BoardEntity board;
 
     @Column(nullable = false)
     private String fileName;
