@@ -7,7 +7,6 @@ import ducami.org.ducademi.domain.book.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class BookService {
     }
 
     // 교재 제목으로 검색
-    public List<BookDTO> searchBooksByTitle(String title) {
+    public List<BookDTO> getSearchBooksByTitle(String title) {
         List<BookEntity> bookEntities = BOOK_REPOSITORY.findByTitle(title);
         return bookEntities.stream()
                 .map(this::convertToDTO)
