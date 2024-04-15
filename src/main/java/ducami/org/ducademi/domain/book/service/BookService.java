@@ -39,11 +39,12 @@ public class BookService {
     }
 
     // 교재 개발
-    public BookEntity postCreateBook(String title, String introduction) {
+    public BookEntity postCreateBook(String title, String introduction, Long authorIdx) {
         BookEntity book = new BookEntity();
         book.setTitle(title);
         book.setIntroduction(introduction);
         book.setCreatedDate(LocalDate.now());
+        book.setAuthorIdx(authorIdx);
 
         return BOOK_REPOSITORY.save(book);
     }
@@ -53,6 +54,7 @@ public class BookService {
     public BookDTO convertToDTO(BookEntity bookEntity) {
         BookDTO bookDTO = new BookDTO();
         bookDTO.setBookIdx(bookEntity.getBookIdx());
+        bookDTO.setAuthorIdx(bookEntity.getAuthorIdx());
         bookDTO.setTitle(bookEntity.getTitle());
         bookDTO.setCreatedDate(bookEntity.getCreatedDate());
         bookDTO.setBookCover(bookEntity.getBookCover());
@@ -61,5 +63,4 @@ public class BookService {
         bookDTO.setModifiedDate(bookEntity.getModifiedDate());
         return bookDTO;
     }
-
 }
