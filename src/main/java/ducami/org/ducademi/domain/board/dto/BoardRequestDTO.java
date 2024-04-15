@@ -17,4 +17,7 @@ public class BoardRequestDTO { // 강의 idx 필요, 파일 필요
     @NotBlank
     private String content;
 
+    @NotBlank
+    private Long LectureIdx;
+
 }
