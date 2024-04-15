@@ -58,13 +58,15 @@ public class BookController {
     public ResponseEntity<BookDTO> postCreateBook(@RequestBody BookDTO bookDTO) {
         String title = bookDTO.getTitle();
         String introduction = bookDTO.getIntroduction();
+        Long authorIdx = bookDTO.getAuthorIdx();
 
         // 교재 개발
-        BookEntity createdBook = BOOK_SERVICE.postCreateBook(title, introduction);
+        BookEntity createdBook = BOOK_SERVICE.postCreateBook(title, introduction, authorIdx);
 
         // 생성된 교재를 DTO로 변환하여 반환
         BookDTO createdBookDTO = BOOK_SERVICE.convertToDTO(createdBook);
         return new ResponseEntity<>(createdBookDTO, HttpStatus.CREATED);
+
     }
 
 }
