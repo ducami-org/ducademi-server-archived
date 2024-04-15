@@ -37,6 +37,11 @@ public class BoardEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private Long memberIdx;
 
+    // 멤버 idx
+    @Column(nullable = false)
+    private Long lectureIdx;
+
+
     // 파일 모음, 일단 보류
 //    @OneToMany(mappedBy = "board")
 //    private List<FileEntity> files = new ArrayList<>();
@@ -44,10 +49,12 @@ public class BoardEntity extends BaseTimeEntity {
     @Builder
     public BoardEntity ( // 객체 생성 편리 위함
         String title,
-        String content
+        String content, Long memberIdx, Long lectureIdx
     ) {
         this.title = title;
         this.content = content;
+        this.memberIdx = memberIdx;
+        this.lectureIdx = lectureIdx;
     }
 
     public void update(BoardRequestDTO boardRequestDTO) {
