@@ -25,7 +25,7 @@ public class BoardService { // 페이징 처리, 파일 추가, 강의 idx도 �
     private final MemberRepository memberRepository;
     private final JwtUtils jwtUtils;
 
-
+    // 글 전체 조회
     public List<GetBoardsResponseDTO> getBoards(Long idx){ // 강의 IDX
         // 1. List<BoardEntity>
         List<BoardEntity> boardList = boardRepository.findAllByLectureIdx(idx);
@@ -35,7 +35,6 @@ public class BoardService { // 페이징 처리, 파일 추가, 강의 idx도 �
                 GetBoardsResponseDTO::of
         ).toList();
     }
-
 
     // 글 생성
     public BoardResponseDTO createBoard(String token, BoardRequestDTO requestDTO) {
