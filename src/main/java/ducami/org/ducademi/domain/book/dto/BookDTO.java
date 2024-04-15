@@ -14,6 +14,9 @@ public class BookDTO {
     private Long bookIdx;
 
     @NotBlank
+    private Long authorIdx;
+
+    @NotBlank
     private String title;
 
     @NotBlank
