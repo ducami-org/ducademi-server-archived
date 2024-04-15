@@ -12,7 +12,7 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     // 모든 교재 조회
-    List<BookEntity> findAllBooks();
+    List<BookEntity> findAll();
 
     // 카테고리별 교재 조회
     List<BookEntity> findByCategory(BookCategory category);
