@@ -1,0 +1,6 @@
+jwt :
+  secret : ${JWT_SECRET}
+
+  expire :
+    access: ${JWT_ACCESS_TOKEN}
+    refresh: ${JWT_REFRESH_TOKEN}
