@@ -1,0 +1,52 @@
+name: Running Develop Branch on Coolify
+
+on:
+  push:
+    branches : [ "chore/flow", ]
+  pull_request :
+    branches : [ "chore/flow" ]
+
+jobs :
+  build :
+    runs-on : ubuntu-latest
+
+    steps :
+    - uses: actions/checkout@v4.1.2
+    - name: Download & Install GraalVM 17 Version
+      uses: graalvm/setup-graalvm@v1
+      with:
+        java-version: '17'
+        distiribution: 'graalvm'
+        
+    - name: Setting JWT Properties File
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ./src/main/resources/application-jwt.yml 
+      env:
+        jwt.secret: ${{ secrets.JWT_SECRET }}
+        jwt.expire.access: ${{ secrets.JWT_ACCESS_EXPIRE }}
+        jwt.expire.refresh: ${{ secrets.JWT_REFRESH_EXPIRE }}
+
+    - name: Setting MySQL Properties File
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ./src/main/resources/application-mysql.yml 
+      env:
+        spring.datasource.url: ${{ secrets.MYSQL_URL }}
+        spring.datasource.username: ${{ secrets.MYSQL_USERNAME }}
+        spring.datasource.password: ${{ secrets.MYSQL_PASSWORD }}
+
+    - name: Setting OAuth Properties File
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ./src/main/resources/application-oauth.yml 
+      env:
+        oauth.google.client-id: ${{ secrets.OAUTH_GOOGLE_CLIENT_ID }}
+        oauth.google.client_secret: ${{ secrets.OAUTH_GOOGLE_CLIENT_SECRET }}
+        oauth.google.redirect-uri: ${{ secrets.OAUTH_GOOGLE_REDIRECT_URI }}
+        
+    - name: Download & Install Gradle
+      uses: gradle/actions/setup-gradle@v3
+      
+    - name: Building Spring Boot Application
+      run: ./gradlew build
