@@ -46,7 +46,7 @@ jobs :
         oauth.google.redirect-uri: ${{ secrets.OAUTH_GOOGLE_REDIRECT_URI }}
         
     - name: Download & Install Gradle
-      uses: gradle/actions/setup-gradle@v3.3
+      uses: gradle/actions/setup-gradle@v3.3.0
       
     - name: Building Spring Boot Application
       run: ./gradlew build
