@@ -52,7 +52,7 @@ jobs :
       run: ./gradlew build
 
     - name: Building Private Docker Image
-      run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/ducademi-server:latest .
+      run: docker buildx build --platform linux/arm64 -t ${{ secrets.DOCKER_HUB_USERNAME }}/ducademi-server:latest .
 
     - name: Sign-In to Docker Hub
       uses: docker/login-action@v3.1.0
