@@ -1,4 +1,4 @@
-name: Running Develop Branch on Coolify
+name: Deploy Develop Branch on Coolify
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs :
       uses: graalvm/setup-graalvm@v1
       with:
         java-version: '17'
-        distiribution: 'graalvm'
+        distribution: 'graalvm'
         
     - name: Setting JWT Properties File
       uses: microsoft/variable-substitution@v1
@@ -46,7 +46,7 @@ jobs :
         oauth.google.redirect-uri: ${{ secrets.OAUTH_GOOGLE_REDIRECT_URI }}
         
     - name: Download & Install Gradle
-      uses: gradle/actions/setup-gradle@v3
+      uses: gradle/actions/setup-gradle@v3.3
       
     - name: Building Spring Boot Application
       run: ./gradlew build
