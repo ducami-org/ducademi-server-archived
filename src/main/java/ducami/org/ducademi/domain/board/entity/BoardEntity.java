@@ -1,6 +1,6 @@
 package ducami.org.ducademi.domain.board.entity;
 
-import ducami.org.ducademi.domain.board.dto.BoardRequestDTO;
+import ducami.org.ducademi.domain.board.dto.CreateBoardRequestDTO;
 import ducami.org.ducademi.global.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,7 +37,7 @@ public class BoardEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private Long memberIdx;
 
-    // 멤버 idx
+    // 강의 idx
     @Column(nullable = false)
     private Long lectureIdx;
 
@@ -57,7 +57,7 @@ public class BoardEntity extends BaseTimeEntity {
         this.lectureIdx = lectureIdx;
     }
 
-    public void update(BoardRequestDTO boardRequestDTO) {
+    public void update(CreateBoardRequestDTO boardRequestDTO) {
         this.title = boardRequestDTO.getTitle();
         this.content = boardRequestDTO.getContent();
     }
