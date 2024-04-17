@@ -17,6 +17,13 @@ jobs :
       with:
         java-version: '17'
         distribution: 'graalvm'
+
+    - name: Setting Base Properties File
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: ./src/main/resources/application.yml 
+      env:
+        server.port: ${{ secrets.APPLICATION_PORT }}
         
     - name: Setting JWT Properties File
       uses: microsoft/variable-substitution@v1
