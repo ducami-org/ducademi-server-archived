@@ -50,3 +50,15 @@ jobs :
       
     - name: Building Spring Boot Application
       run: ./gradlew build
+
+    - name: Building Private Docker Image
+      run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/ducademi-server:latest .
+
+    - name: Sign-In to Docker Hub
+      uses: docker/login-action@v3.1.0
+      with:
+        username: ${{ secrets.DOCKER_HUB_EMAIL }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+    - name: Publish Image to Private Repository
+      run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ducademi-server
