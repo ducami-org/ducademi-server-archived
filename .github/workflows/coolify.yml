@@ -62,3 +62,7 @@ jobs :
 
     - name: Publish Image to Private Repository
       run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ducademi-server
+
+    - name: Hooking Coolify Deployment
+      run: |
+         curl --request GET '${{ secrets.COOLIFY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
