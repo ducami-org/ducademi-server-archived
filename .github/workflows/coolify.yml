@@ -2,9 +2,9 @@ name: Deploy Develop Branch on Coolify
 
 on:
   push:
-    branches : [ "chore/flow", ]
+    branches : [ "develop" ]
   pull_request :
-    branches : [ "chore/flow" ]
+    branches : [ "develop" ]
 
 jobs :
   build :
