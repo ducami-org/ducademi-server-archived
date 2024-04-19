@@ -1,6 +1,8 @@
 package ducami.org.ducademi.domain.lecture.presentation;
 
 
+import ducami.org.ducademi.domain.lecture.presentation.dto.request.CreateLecturesRequest;
+import ducami.org.ducademi.domain.lecture.service.DucamiLectureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +32,7 @@ public class DucamiLectureController {
             @PathVariable Long idx,
             @RequestBody CreateLecturesRequest request
     ) {
-        ducamiLectureService.createLecture(token,request);
+        ducamiLectureService.createLecture(idx,request);
     }
 
     /**
