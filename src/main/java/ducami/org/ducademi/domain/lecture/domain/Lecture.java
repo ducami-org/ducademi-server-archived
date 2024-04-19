@@ -15,6 +15,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "lecture")
@@ -27,10 +29,10 @@ public class Lecture {
     @Column(nullable = false)
     private String title;
     private String introduction;
-    private String applyStartDate;
-    private String applyEndDate;
-    private String startDate;
-    private String endDate;
+    private LocalDateTime applyStartDate;
+    private LocalDateTime applyEndDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String target;
 
     @Enumerated(EnumType.STRING)
@@ -43,8 +45,9 @@ public class Lecture {
     private Long teacherIdx;
 
     @Builder
-    public Lecture(String title,String introduction,String applyStartDate,String applyEndDate,String startDate,String endDate,String target,LectureType category,Long teacherIdx){
+    public Lecture(String title,String introduction,LocalDateTime applyStartDate,LocalDateTime applyEndDate,LocalDateTime startDate,LocalDateTime endDate,String target,LectureType category,Long teacherIdx, Integer maxApplier){
         this.title = title;
+        this.maxApplier = maxApplier;
         this.introduction = introduction;
         this.applyStartDate = applyStartDate;
         this.applyEndDate = applyEndDate;
