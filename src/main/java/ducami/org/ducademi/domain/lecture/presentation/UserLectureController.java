@@ -2,20 +2,19 @@ package ducami.org.ducademi.domain.lecture.presentation;
 
 
 import ducami.org.ducademi.domain.lecture.domain.enums.LectureType;
+import ducami.org.ducademi.domain.lecture.presentation.dto.response.LectureListResponse;
+import ducami.org.ducademi.domain.lecture.service.UserLectureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
-@RequestMapping(value = "user")
 @RequiredArgsConstructor
 public class UserLectureController {
 
@@ -38,27 +37,26 @@ public class UserLectureController {
      * */
     @GetMapping("lectures")
     @ResponseStatus(HttpStatus.OK)
-    public LectureListResponse getLecturesByType(
-            @RequestBody List<LectureType> category,
+    public LectureListResponse getLecturesByCategory(
+            @RequestBody LectureType category,
             @RequestParam int page,
             @RequestParam int size
     ) {
-        return userLectureService.getLecturesByType(page,size,category);
+        return userLectureService.getLecturesByCategory(page,size,category);
     }
 
     /**
-     * 키워드 검색 & 카테고리
+     * 키워드 검색
      * */
     @GetMapping("lectures/{keyword}")
     @ResponseStatus(HttpStatus.OK)
     public LectureListResponse getLecturesByKeyword(
             @RequestParam int page,
             @RequestParam int size,
-            @PathVariable String keyword,
-            @RequestBody List<LectureType> category
+            @PathVariable String keyword
 
     ) {
-        userLectureService.getLecturesByKeyword(page,size,keyword,category);
+        return userLectureService.getLecturesByKeyword(page,size,keyword);
     }
 
     /**
@@ -66,13 +64,16 @@ public class UserLectureController {
      * */
     @GetMapping("/users/{idx}/lectures")
     @ResponseStatus(HttpStatus.OK)
-    public AppliedLectureListResponse getAppliedLecture(
+    public LectureListResponse getAppliedLecture(
             @RequestParam int page,
             @RequestParam int size,
             @PathVariable Long idx
     ) {
-        userLectureService.getAppliedLecture(page,size,idx);
+        return userLectureService.getAppliedLecture(page,size,idx);
     }
+
+
+
 
 
 }
