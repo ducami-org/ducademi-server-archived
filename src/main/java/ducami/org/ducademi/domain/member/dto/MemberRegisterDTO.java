@@ -3,6 +3,8 @@ package ducami.org.ducademi.domain.member.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
+import java.time.LocalDate;
+
 @Getter
 public class MemberRegisterDTO {
 
@@ -16,7 +18,7 @@ public class MemberRegisterDTO {
     private String name;
 
     @NotBlank
-    private String birth;
+    private LocalDate birth;
 
     @NotBlank
     private String email;
