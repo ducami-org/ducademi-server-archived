@@ -36,7 +36,7 @@ public class MemberEntity {
 
     // 회원 생년월일
     @Column(name = "birth", nullable = false)
-    private String birth;
+    private LocalDate birth;
 
     @Column(name="email", nullable = false, unique = true)
     private String email;
@@ -67,7 +67,7 @@ public class MemberEntity {
             String id,
             String password,
             String name,
-            String birth,
+            LocalDate birth,
             String email,
             String phoneNum,
             MemberAccountType authority
