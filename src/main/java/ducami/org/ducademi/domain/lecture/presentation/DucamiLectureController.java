@@ -2,6 +2,10 @@ package ducami.org.ducademi.domain.lecture.presentation;
 
 
 import ducami.org.ducademi.domain.lecture.presentation.dto.request.CreateLecturesRequest;
+import ducami.org.ducademi.domain.lecture.presentation.dto.request.DeleteLectureRequest;
+import ducami.org.ducademi.domain.lecture.presentation.dto.request.UpdateLectureRequest;
+import ducami.org.ducademi.domain.lecture.presentation.dto.response.ApplierResponse;
+import ducami.org.ducademi.domain.lecture.presentation.dto.response.GetManagingListResponse;
 import ducami.org.ducademi.domain.lecture.service.DucamiLectureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,13 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(value = "ducami")
 @RequiredArgsConstructor
 public class DucamiLectureController {
 
@@ -44,7 +48,7 @@ public class DucamiLectureController {
             @PathVariable Long idx,
             @RequestBody UpdateLectureRequest request
     ) {
-        ducamiLectureService.updateLecture(request);
+        ducamiLectureService.updateLecture(idx,request);
     }
 
     /**
@@ -56,15 +60,15 @@ public class DucamiLectureController {
             @PathVariable Long idx,
             @RequestBody DeleteLectureRequest request
     ) {
-        ducamiLectureService.deleteLecture(request);
+        ducamiLectureService.deleteLecture(idx,request);
     }
 
     /**
      * 내 강의실 & 내가 관리하는 강의
      * */
-    @GetMapping("users/{idx}/lectures")
+    @GetMapping("ducamis/{idx}/lectures")
     @ResponseStatus(HttpStatus.OK)
-    public void getManagingLectures(
+    public GetManagingListResponse getManagingLectures(
             @RequestParam int page,
             @RequestParam int size,
             @PathVariable Long idx
@@ -72,5 +76,14 @@ public class DucamiLectureController {
         return ducamiLectureService.getManagingLectures(page,size,idx);
     }
 
-
+    /**
+     * 강의 수강자 정보 조회
+     * */
+    @GetMapping("lectures/{idx}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ApplierResponse> getAllAppliers(
+            @PathVariable Long idx
+    ) {
+        return ducamiLectureService.getAllAppliers(idx);
+    }
 }
