@@ -1,9 +1,10 @@
 package ducami.org.ducademi.domain.board.controller;
 
-import ducami.org.ducademi.domain.board.dto.BoardRequestDTO;
+import ducami.org.ducademi.domain.board.dto.CreateBoardRequestDTO;
 import ducami.org.ducademi.domain.board.dto.BoardResponseDTO;
 import ducami.org.ducademi.domain.board.dto.GetBoardsResponseDTO;
 import ducami.org.ducademi.domain.board.service.BoardService;
+import ducami.org.ducademi.global.response.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,12 +39,10 @@ public class BoardController {
 
     // 글 등록
     @PostMapping()
-    public BoardResponseDTO createBoard(
-            @RequestHeader("Authorization") String token,
-            @RequestBody BoardRequestDTO requestDTO
+    public BaseResponse<?> createBoard(
+            @RequestBody CreateBoardRequestDTO requestDTO
     ) {
-        BoardResponseDTO board = boardService.createBoard(token,requestDTO);
-        return board;
+        return boardService.createBoard(requestDTO);
     }
 
     // 글 하나 조회
@@ -54,7 +53,7 @@ public class BoardController {
 
     // 글 수정
     @PutMapping("{idx}")
-    public Long updateBoard(@PathVariable Long idx, @RequestBody BoardRequestDTO requestDTO) {
+    public Long updateBoard(@PathVariable Long idx, @RequestBody CreateBoardRequestDTO requestDTO) {
         return boardService.update(idx, requestDTO);
     }
 
