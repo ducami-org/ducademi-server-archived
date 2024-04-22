@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,10 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
-
-//    public BoardController(BoardService boardService) {
-//        this.boardService = boardService;
-//    }
 
     // 글 전체 조회
     @GetMapping("lectures/{idx}")
@@ -59,8 +54,8 @@ public class BoardController {
 
     // 글 삭제
     @DeleteMapping("{idx}")
-    public Long deleteBoard(@PathVariable Long id) {
-        return boardService.deleteBoard(id);
+    public BaseResponse<?> deleteBoard(@PathVariable Long idx) {
+        return boardService.deleteBoard(idx);
     }
 
 }
