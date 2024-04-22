@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static ducami.org.ducademi.global.exception.CustomErrorCode.BOARD_NOT_EXIST;
 import static ducami.org.ducademi.global.exception.CustomErrorCode.MEMBER_NOT_CORRECT;
@@ -62,7 +63,7 @@ public class BoardService { // 페이징 처리, 파일 추가
                 true,
                 "OK",
                 "보드 생성 성공 !!",
-                List.of(BoardResponseDTO.of(board))
+                null
         );
     }
 
@@ -86,9 +87,27 @@ public class BoardService { // 페이징 처리, 파일 추가
 
     // 게시글 삭제
     @Transactional
-    public Long deleteBoard(Long boardIdx) {
+    public BaseResponse<?> deleteBoard(Long boardIdx) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        MemberEntity member = memberRepository.findById(authentication.getName())
+                .orElseThrow(() -> new CustomException(MEMBER_NOT_EXIST));
+
+        BoardEntity board = boardRepository.findById(boardIdx)
+                .orElseThrow(() -> new CustomException(BOARD_NOT_EXIST));
+
+        if (!board.getMemberIdx().equals(member.getIdx())) {
+            throw new CustomException(MEMBER_NOT_CORRECT);
+        }
+
+//        BoardEntity board
         boardRepository.deleteById(boardIdx);
-        return boardIdx;
+        return BaseResponse.of(
+                true,
+                "OK",
+                "보드 생성 성공 !!",
+                null
+        );
     }
 
 
