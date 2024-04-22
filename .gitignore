@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### Seula's Settings ###
-application*.yml
+application*

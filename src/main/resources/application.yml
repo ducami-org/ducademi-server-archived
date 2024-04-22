@@ -1,1 +1,6 @@
+server :
+  port : ${APPLICATION_PORT}
 
+spring :
+  profiles :
+    include : jwt, mysql, oauth
